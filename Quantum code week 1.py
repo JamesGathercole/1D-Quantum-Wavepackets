@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import cmath
 from itertools import zip_longest
 
-x = np.linspace(0,2*np.pi,101)
+x = np.linspace(-5,5,101)
 i = complex(0,1)
-h_bar = 1.054571817*10**-34
-m = 9.11*10**-31
+h_bar = 1
+m = 1
 
 #k = float(input("Enter the value for the wave number k = "))
 #t = float(input("Enter the value for the time t = "))
@@ -26,6 +26,9 @@ def phi(k,t):
 def psi(k,x):
     return np.cos(k*x) + i*np.sin(k*x)
 
+def psi_step(k,x):
+    return 0
+
 def zero(x):
     return x*0 + i*x*0 
 
@@ -36,41 +39,41 @@ def P(c,d):
     return c*d.conjugate()
 
 
-k = [8,8.2,8.4,8.6,8.8,9,9.2,9.4,9.6,9.8,10]
+k = [5,6,7,8,9,10,11,12,13,14,15]
 amp_k = [0,0.2,0.4,0.6,0.8,1,0.8,0.6,0.4,0.2,0]
 #k_0 = 9
 #delta_k = 
 #n_k = 
-t = 0
+t = 100
 PSI_total = zero(x)
-print(PSI_total)
 
 for a, b in zip_longest(k, amp_k):
     psi_k = psi(a,x)
     phi_k = phi(a,t)
     PSI_k = PSI(b,psi_k,phi_k)
     PSI_total += PSI_k
-    print(a)
-    print(b)
-    print(PSI_total)   
+       
 
-
-Probability = P(PSI_k,PSI_k)   
+Probability = P(PSI_total,PSI_total)   
 
 plt.figure(figsize=(10,4))
 
 plt.subplot(1,3,1)
-plt.plot(x, PSI_k.real)
+plt.plot(x, PSI_total.real, label = 'Time = 100')
+plt.legend(loc = 'lower right')
 plt.xlabel('x values')
 plt.ylabel('\u03C8 (Re)')
 
 plt.subplot(1,3,2)
-plt.plot(x, PSI_k.imag)
+plt.plot(x, PSI_total.imag, label = 'Time = 100')
+plt.legend(loc = 'lower right')
 plt.xlabel('x values')
 plt.ylabel('\u03C8 (Im)')
 
 plt.subplot(1,3,3)
-plt.plot(x, Probability)
+plt.plot(x, Probability, label = 'Time =100')
+plt.legend(loc = 'lower right')
+plt.axis([-2,4,-1,25])
 plt.xlabel('x values')
 plt.ylabel('\u03C8*\u03C8')
 
