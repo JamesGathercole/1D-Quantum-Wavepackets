@@ -29,7 +29,7 @@ def psi(k,x):
     return np.cos(k*x) + i*np.sin(k*x)
 
 def zero(x):
-    return range(x)
+    return np.arange(float((x)))
 
 def zero_complex(x):
     return x*0 + i*x*0 
@@ -40,27 +40,27 @@ def PSI(amp,psi,phi):
 def P(c,d):
     return c*d.conjugate()
 
-k_min = 5
-k_max = 15
+k_min = 9
+k_max = 11
 n_k = 11
-n = 11
 #k = [5,6,7,8,9,10,11,12,13,14,15]
 amp_k = [0,0.2,0.4,0.6,0.8,1,0.8,0.6,0.4,0.2,0]
 L = 31
 k = np.linspace(k_min, k_max, n_k)
-delta_k = 2/(n_k-1)
+delta_k = (k_max-k_min)/(n_k-1)
 
-amp = zero_complex(n_k)
-for item in range(n_k):
-    if n < (n_k - 1)/2:
-       A = 0 + n*delta_k
-    elif n == (n_k - 1)/2:
+amp = zero(n_k)
+print(amp)
+for item in np.arange(n_k):
+    if item < (n_k - 1)/2:
+       A = 0 + item*delta_k
+    elif item == (n_k - 1)/2:
          A = 1
     else:
-         A = 1-((n - ((n_k - 1)/2))*delta_k)
-    amp += A  
+         A = 1-((item - ((n_k - 1)/2))*delta_k)
+    amp = A
 
-print(A)
+print(amp)
 
 t = 0
 PSI_total = zero_complex(x)
