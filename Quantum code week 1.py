@@ -40,27 +40,25 @@ def PSI(amp,psi,phi):
 def P(c,d):
     return c*d.conjugate()
 
-k_min = 9
-k_max = 11
+k_min = 0
+k_max = 1
 n_k = 11
 #k = [5,6,7,8,9,10,11,12,13,14,15]
-amp_k = [0,0.2,0.4,0.6,0.8,1,0.8,0.6,0.4,0.2,0]
+#amp_k = [0,0.2,0.4,0.6,0.8,1,0.8,0.6,0.4,0.2,0]
 L = 31
 k = np.linspace(k_min, k_max, n_k)
 delta_k = (k_max-k_min)/(n_k-1)
 
-amp = zero(n_k)
-print(amp)
+amp_k = []
 for item in np.arange(n_k):
-    if item < (n_k - 1)/2:
-       A = 0 + item*delta_k
-    elif item == (n_k - 1)/2:
-         A = 1
-    else:
-         A = 1-((item - ((n_k - 1)/2))*delta_k)
-    amp = A
-
-print(amp)
+    if item < (n_k - 1)/2: 
+        A = 0 + item*delta_k
+    elif item == (n_k - 1)/2: 
+        A = 1
+    else: 
+        A = 1-((item - ((n_k - 1)/2))*delta_k) 
+    amp_k.append(A)
+print(amp_k)
 
 t = 0
 PSI_total = zero_complex(x)
@@ -91,7 +89,7 @@ plt.ylabel('\u03C8 (Im)')
 plt.subplot(1,3,3)
 plt.plot(x, Probability, label = 'Time =100')
 plt.legend(loc = 'lower right')
-plt.axis([-10,10,-1,25])
+#plt.axis([-10,10,-1,25])
 plt.xlabel('x values')
 plt.ylabel('\u03C8*\u03C8')
 
