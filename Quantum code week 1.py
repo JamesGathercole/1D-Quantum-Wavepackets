@@ -6,7 +6,6 @@ Created on Tue Jan 17 13:46:40 2023
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import cmath
 from itertools import zip_longest
 
 x = np.linspace(-5,5,101)
@@ -23,13 +22,16 @@ def phi(k,t):
     E_k = (((h_bar*k)**2)/(2*m))
     return np.e**(-i*(E_k/h_bar)*t)
 
+def psi_well(k,L,x):
+    return np.cos(((k*np.pi*x)/L)) + i*np.sin((k*np.pi*x)/L)
+
 def psi(k,x):
     return np.cos(k*x) + i*np.sin(k*x)
 
-def psi_step(k,x):
-    return 0
-
 def zero(x):
+    return range(x)
+
+def zero_complex(x):
     return x*0 + i*x*0 
 
 def PSI(amp,psi,phi):
@@ -38,14 +40,30 @@ def PSI(amp,psi,phi):
 def P(c,d):
     return c*d.conjugate()
 
-
-k = [5,6,7,8,9,10,11,12,13,14,15]
+k_min = 5
+k_max = 15
+n_k = 11
+n = 11
+#k = [5,6,7,8,9,10,11,12,13,14,15]
 amp_k = [0,0.2,0.4,0.6,0.8,1,0.8,0.6,0.4,0.2,0]
-#k_0 = 9
-#delta_k = 
-#n_k = 
-t = 100
-PSI_total = zero(x)
+L = 31
+k = np.linspace(k_min, k_max, n_k)
+delta_k = 2/(n_k-1)
+
+amp = zero_complex(n_k)
+for item in range(n_k):
+    if n < (n_k - 1)/2:
+       A = 0 + n*delta_k
+    elif n == (n_k - 1)/2:
+         A = 1
+    else:
+         A = 1-((n - ((n_k - 1)/2))*delta_k)
+    amp += A  
+
+print(A)
+
+t = 0
+PSI_total = zero_complex(x)
 
 for a, b in zip_longest(k, amp_k):
     psi_k = psi(a,x)
@@ -73,7 +91,7 @@ plt.ylabel('\u03C8 (Im)')
 plt.subplot(1,3,3)
 plt.plot(x, Probability, label = 'Time =100')
 plt.legend(loc = 'lower right')
-plt.axis([-2,4,-1,25])
+plt.axis([-10,10,-1,25])
 plt.xlabel('x values')
 plt.ylabel('\u03C8*\u03C8')
 
